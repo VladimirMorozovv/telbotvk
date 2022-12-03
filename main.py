@@ -1,9 +1,12 @@
 import telebot
 from telebot import types
 import config
+import model
 import managment_user
 
 bot = telebot.TeleBot(config.token)
+
+
 
 
 
@@ -24,6 +27,8 @@ def start(message):
     bot.send_message(message.chat.id,
                      f"Здравствуйте, {message.from_user.first_name}. Я ваш виртуальный ассистент, что вас интересует?. \n\nВыберите из меню ниже: ",
                      parse_mode='html', reply_markup= markup)
+    addusers = managment_user.Managment_user()
+    addusers.AddUser(model.Data_user(message.chat.id, message.from_user.username, message.from_user.first_name))
 
 #Кнопка /help
 @bot.message_handler(commands=["help"])
@@ -42,7 +47,8 @@ user_store = {}
 def add_to_search(message):
     global user_store
     global rds
-
+    user = model.Data_user(message.chat.id, message.from_user.username, message.from_user.first_name)
+    user_store[message.chat.id] = user
     if message.text == "Медицина":
 
         keyboard = types.InlineKeyboardMarkup(row_width = 2)
@@ -61,13 +67,6 @@ def add_to_search(message):
         bot.send_message(message.chat.id,
                          "Медицина в Армении очень славится своим профессионализмом и безудержным желанием людей помочь человеку(Красивый и не очень большой текст про медицину в армении",
                          reply_markup=keyboard )
-        user = managment_user.Data_user(message.chat.id, message.from_user.username)
-        user_store[message.chat.id] = user
-
-
-
-
-
 
     elif message.text == "Легализация":
         keyboard = types.InlineKeyboardMarkup(row_width = 1)
@@ -85,12 +84,13 @@ def add_to_search(message):
         callback_button9 = types.InlineKeyboardButton(text="Свидетельство о налоговом резиденстве", callback_data=f'legal-9-{message.chat.id}')
         callback_button10 = types.InlineKeyboardButton(text="другое...",
                                                       callback_data=f'legal-10-{message.chat.id}')
+        callback_button11 = types.InlineKeyboardButton(text="Поддержка юриста",
+                                                       callback_data=f'legal-11-{message.chat.id}')
+
         keyboard.add(callback_button1, callback_button2, callback_button3, callback_button4, callback_button5,
-                     callback_button6, callback_button7, callback_button8, callback_button9, callback_button10)
+                     callback_button6, callback_button7, callback_button8, callback_button9, callback_button10, callback_button11)
         bot.send_message(message.chat.id,
                          "В этом пункте меню вы можете выбрать интересующие вопросы по легализации в стране", reply_markup=keyboard )
-        user = managment_user.Data_user(message.chat.id, message.from_user.username)
-        user_store[message.chat.id] = user
 
     elif message.text == "Жилье":
         keyboard = types.InlineKeyboardMarkup(row_width = 1)
@@ -101,7 +101,7 @@ def add_to_search(message):
         keyboard.add(callback_button1, callback_button2)
         bot.send_message(message.chat.id,
                          "В этом пункте меню вы можете выбрать интересующие вопросы по жилью в Армении", reply_markup=keyboard )
-        user = managment_user.Data_user(message.chat.id, message.from_user.username)
+        user = model.Data_user(message.chat.id, message.from_user.username, message.from_user.first_name)
         user_store[message.chat.id] = user
     elif message.text == "Развлечения":
         keyboard = types.InlineKeyboardMarkup(row_width = 1)
@@ -128,8 +128,7 @@ def add_to_search(message):
                      callback_button6, callback_button7, callback_button8, callback_button9, callback_button10, callback_button11, callback_button12)
         bot.send_message(message.chat.id,
                          "В этом пункте меню вы можете выбрать интересующие вопросы по развлечениям", reply_markup=keyboard )
-        user = managment_user.Data_user(message.chat.id, message.from_user.username)
-        user_store[message.chat.id] = user
+
     elif message.text == "Образование":
         keyboard = types.InlineKeyboardMarkup(row_width=1)
 
@@ -142,8 +141,6 @@ def add_to_search(message):
         bot.send_message(message.chat.id,
                          "В этом пункте меню вы можете выбрать интересующие вопросы про образование",
                          reply_markup=keyboard)
-        user = managment_user.Data_user(message.chat.id, message.from_user.username)
-        user_store[message.chat.id] = user
     elif message.text == "Туры":
         keyboard = types.InlineKeyboardMarkup(row_width=2)
 
@@ -158,8 +155,7 @@ def add_to_search(message):
         bot.send_message(message.chat.id,
                          "В этом пункте меню вы можете выбрать интересующие вопросы по турам",
                          reply_markup=keyboard)
-        user = managment_user.Data_user(message.chat.id, message.from_user.username)
-        user_store[message.chat.id] = user
+
     elif message.text == "Поддержка":
         bot.send_message(message.chat.id,
                          "Перейдет в чат с поддержкой")
@@ -171,66 +167,30 @@ def callback_inline(call):   #функция определения на как�
     if call.message:
         call_data = call.data.split("-")
         user = user_store[int(call_data[2])]
-
+        getData = managment_user.Managment_user()
         if call_data[0] == "med":
-            if call_data[1] == "1":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про стоматологов")
-            elif call_data[1]== "2":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Гинекологов")
-            elif call_data[1]== "3":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Терапевтов")
-            elif call_data[1]== "4":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Психологов")
-            elif call_data[1]== "5":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Подологов")
-            elif call_data[1]== "6":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Проктологов")
-            elif call_data[1]== "7":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Аллергологов")
-            elif call_data[1]== "8":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Окулистов")
-            elif call_data[1]== "9":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про что-то другое")
+            send = getData.GetMedical(call_data[1])
+            for i in send:
+                try:
+                    bot.send_message(user.telegchatID,
+                                     f' <b>{i.name}</b> \n <b>Адрес</b>: {i.address} \n <b>Тел</b>: {i.number_phone} \n <a href="{i.website}">Сайт клиники</a>',
+                                     parse_mode='html')
+                except:
+                    continue
+
+
+
         elif call_data[0] == "legal":
-            if call_data[1] == "1":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про ВНЖ-ПМЖ")
-            elif call_data[1] == "2":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Получение загранпаспорта")
-            elif call_data[1] == "3":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про оформление шенгена")
-            elif call_data[1] == "4":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Гражданство")
-            elif call_data[1] == "5":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Открытие личного банковского счета")
-            elif call_data[1] == "6":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про ИНН")
-            elif call_data[1] == "7":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про SSN")
-            elif call_data[1] == "8":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Регистрацию адреса")
-            elif call_data[1] == "9":
-                bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про Свидетельство о налоговм резиденстве")
+            if int(call_data[1]) < 10:
+                bot.send_photo(user.telegchatID, open(f'legal_picture/{call_data[1]}.jpg', 'rb'))
+
             elif call_data[1] == "10":
                 bot.send_message(user.telegchatID,
                                  text="Здесь будет информация про что-то другое")
+            elif call_data[1] == "11":
+                bot.send_message(user.telegchatID,
+                                 text="Здесь будет связь с юристом")
+
         elif call_data[0] == "aprt":
             if call_data[1] == "1":
                 bot.send_message(user.telegchatID,
