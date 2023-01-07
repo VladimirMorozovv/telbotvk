@@ -186,12 +186,12 @@ def callback_inline(call):   #функция определения на как�
 
         elif call_data[0] == "legal":
 
-            bot.send_photo(user.telegchatID, open(f'legal_picture/{call_data[1]}.jpg', 'rb'))
+            bot.send_photo(user.telegchatID, open(f'/home/telbot/legal_picture/{call_data[1]}.jpg', 'rb'))
 
             if call_data[1] == "1":
-                bot.send_photo(user.telegchatID, open(f'legal_picture/1.jpg', 'rb'))
+                bot.send_photo(user.telegchatID, open(f'/home/telbot/legal_picture/1.jpg', 'rb'))
             elif call_data[1]== "4":
-                bot.send_photo(user.telegchatID, open(f'legal_picture/10.jpg', 'rb'))
+                bot.send_photo(user.telegchatID, open(f'/home/telbot/legal_picture/10.jpg', 'rb'))
 
         elif call_data[0] == "aprt":
             if call_data[1] == "1":
@@ -217,22 +217,22 @@ def callback_inline(call):   #функция определения на как�
 
 
         elif call_data[0] == "event":
-            if call_data[1] != "6":
+            if call_data[1] != "7":
                 send = getData.GetEntertainments(call_data[1])
                 for i in send:
                     try:
                         if i.website != '':
 
-                            bot.send_message(user.telegchatID,
+                            bot.send_message(call_data[2],
                                              f' <b>{i.name}</b> \n <b>Адрес</b>: {i.address} \n <b>Тел</b>: {i.number_phone} \n <a href="{i.website}">Сайт</a>',
                                              parse_mode='html')
                         else:
-                            bot.send_message(user.telegchatID,
+                            bot.send_message(call_data[2],
                                              f' <b>{i.name}</b> \n <b>Адрес</b>: {i.address} \n <b>Тел</b>: {i.number_phone}',
                                              parse_mode='html')
                     except:
                         continue
-            elif call_data[1] == "6":
+            elif call_data[1] == "7":
                 keyboard = types.InlineKeyboardMarkup(row_width=1)
                 button1 = types.InlineKeyboardButton(text="Армянская кухня",
                                                          callback_data=f'eat-1-{call_data[2]}')
@@ -267,12 +267,12 @@ def callback_inline(call):   #функция определения на как�
                     try:
                         if i.website != '':
 
-                            bot.send_message(user.telegchatID,
-                                             f' <b>{i.name}</b> \n <b>Адрес</b>: {i.address} \n <b>Тел</b>: {i.number_phone} \n <a href="{i.website}">Сайт</a>',
+                            bot.send_message(call_data[2],
+                                             f' <b>{i.name}</b> \n <a href="{i.website}">Сайт</a>',
                                              parse_mode='html')
                         else:
-                            bot.send_message(user.telegchatID,
-                                             f' <b>{i.name}</b> \n <b>Адрес</b>: {i.address} \n <b>Тел</b>: {i.number_phone}',
+                            bot.send_message(call_data[2],
+                                             f' <b>{i.name}</b> \n',
                                              parse_mode='html')
                     except:
                         continue
@@ -282,12 +282,12 @@ def callback_inline(call):   #функция определения на как�
                     try:
                         if i.website != '':
 
-                            bot.send_message(user.telegchatID,
-                                             f' <b>{i.name}</b> \n <b>Адрес</b>: {i.address} \n <b>Тел</b>: {i.number_phone} \n <a href="{i.website}">Сайт</a>',
+                            bot.send_message(call_data[2],
+                                             f' <b>{i.name}</b> \n {i.description} \n <a href="{i.website}">Сайт</a>',
                                              parse_mode='html')
                         else:
-                            bot.send_message(user.telegchatID,
-                                             f' <b>{i.name}</b> \n <b>Адрес</b>: {i.address} \n <b>Тел</b>: {i.number_phone}',
+                            bot.send_message(call_data[2],
+                                             f' <b>{i.name}</b> \n {i.description}',
                                              parse_mode='html')
                     except:
                         continue
@@ -305,9 +305,9 @@ def callback_inline(call):   #функция определения на как�
                                         """)
         elif call_data[0] == "tour":
             if call_data[1] == "1":
-                bot.send_photo(user.telegchatID, open(f'tour_picture/1.jpg', 'rb'))
-                bot.send_photo(user.telegchatID, open(f'tour_picture/2.jpg', 'rb'))
-                bot.send_photo(user.telegchatID, open(f'tour_picture/3.jpg', 'rb'))
+                bot.send_photo(user.telegchatID, open(f'/home/telbot/tour_picture/1.jpg', 'rb'))
+                bot.send_photo(user.telegchatID, open(f'/home/telbot/tour_picture/2.jpg', 'rb'))
+                bot.send_photo(user.telegchatID, open(f'/home/telbot/tour_picture/3.jpg', 'rb'))
             elif call_data[1] == "4":
                 bot.send_photo(user.telegchatID, open(f'tour_picture/4.jpg', 'rb'))
             elif call_data[1] == "2":
@@ -322,14 +322,15 @@ def callback_inline(call):   #функция определения на как�
                 try:
                     if i.website != '':
 
-                        bot.send_message(user.telegchatID,
+                        bot.send_message(call_data[2],
                                          f' <b>{i.name}</b> \n <b>Адрес</b>: {i.address} \n <b>Тел</b>: {i.number_phone} \n <a href="{i.website}">Сайт</a>',
                                          parse_mode='html')
                     else:
-                        bot.send_message(user.telegchatID,
+                        bot.send_message(call_data[2],
                                          f' <b>{i.name}</b> \n <b>Адрес</b>: {i.address} \n <b>Тел</b>: {i.number_phone}',
                                          parse_mode='html')
                 except:
                     continue
 if __name__ == "__main__":
     bot.infinity_polling()
+

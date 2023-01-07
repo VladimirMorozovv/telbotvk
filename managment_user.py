@@ -121,14 +121,14 @@ class Managment_user:
                                          database=config.database,
                                          ) as connection:
                 get_school = f"""
-                    SELECT name, description, website from eat where typeID = {typeID}
+                    SELECT name, description, website from studu where typeID = {typeID}
 
                 """
                 with connection.cursor() as cursor:
                     cursor.execute(get_school)
                     send = []
                     for row in cursor.fetchall():
-                        send.append(model.Data_school(row[0], row[1]))
+                        send.append(model.Data_studu(row[0], row[1], row[2]))
                     return send
         except Exception as e:
             return e
