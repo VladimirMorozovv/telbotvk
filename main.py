@@ -137,7 +137,7 @@ def add_to_search(message):
                          "В этом пункте меню вы можете выбрать интересующие вопросы про образование",
                          reply_markup=keyboard)
     elif message.text == "Туры 🌞":
-        keyboard = types.InlineKeyboardMarkup(row_width=2)
+        keyboard = types.InlineKeyboardMarkup(row_width=1)
 
         callback_button1 = types.InlineKeyboardButton(text="Экстримальный тур", callback_data=f'tour-1-{message.chat.id}')
         callback_button2 = types.InlineKeyboardButton(text="Обзорный тур", callback_data=f'tour-2-{message.chat.id}')
@@ -183,7 +183,7 @@ def callback_inline(call):   #функция определения на как�
 
         elif call_data[0] == "legal":
 
-            bot.send_photo(user.telegchatID, open(f'/home/telbot/legal_picture/{call_data[1]}.jpg', 'rb'))
+            bot.send_photo(user.telegchatID, open(f'/home/telbot2/telbotvk/legal_picture/{call_data[1]}.jpg', 'rb'))
 
             if call_data[1] == "1":
                 bot.send_photo(user.telegchatID, open(f'/home/telbot/legal_picture/1.jpg', 'rb'))
@@ -352,7 +352,7 @@ def callback_inline(call):   #функция определения на как�
                 except:
                     continue
         elif call_data[0] == "tourIn":
-            bot.send_photo(user.telegchatID, open(f'/home/telbot/tour_picture/{call_data[1]}.jpg', 'rb'))
+            bot.send_photo(user.telegchatID, open(f'/home/telbot2/telbotvk/tour_picture/{call_data[1]}.jpg', 'rb'))
 
 if __name__ == "__main__":
     bot.infinity_polling()
