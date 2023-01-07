@@ -42,7 +42,7 @@ def add_to_search(message):
     global rds
     user = model.Data_user(message.chat.id, message.from_user.username, message.from_user.first_name)
     user_store[message.chat.id] = user
-    if message.text == "Медицина":
+    if message.text == "Медицина👨‍⚕":
 
         keyboard = types.InlineKeyboardMarkup(row_width = 2)
 
@@ -67,7 +67,7 @@ def add_to_search(message):
 • для звонков после 18:00 до 21:00 по будням и выходным – 094-26-75-55 и 091-65-40-64 \n\n 💫Выберите специалиста которого ищите. \n\n 👩‍⚕Если его нету в списке выберите чат для разговора с консультантом""",
                          reply_markup=keyboard )
 
-    elif message.text == "Легализация":
+    elif message.text == "Легализация 🗂":
         keyboard = types.InlineKeyboardMarkup(row_width = 1)
 
 
@@ -90,7 +90,7 @@ def add_to_search(message):
         bot.send_message(message.chat.id,
                          "В этом пункте меню вы можете выбрать интересующие вопросы по легализации в стране", reply_markup=keyboard )
 
-    elif message.text == "Жилье":
+    elif message.text == "Жилье 🏡":
         keyboard = types.InlineKeyboardMarkup(row_width = 1)
 
         callback_button1 = types.InlineKeyboardButton(text="Аренда квартиры", callback_data=f'aprt-1-{message.chat.id}')
@@ -102,7 +102,7 @@ def add_to_search(message):
                          "В этом пункте меню вы можете выбрать интересующие вопросы по жилью в Армении", reply_markup=keyboard )
 
 
-    elif message.text == "Развлечения":
+    elif message.text == "Развлечение 🛍":
         keyboard = types.InlineKeyboardMarkup(row_width = 1)
 
 
@@ -122,7 +122,7 @@ def add_to_search(message):
         bot.send_message(message.chat.id,
                          "В этом пункте меню вы можете выбрать интересующие вопросы по развлечениям", reply_markup=keyboard )
 
-    elif message.text == "Образование":
+    elif message.text == "Образование📚":
         keyboard = types.InlineKeyboardMarkup(row_width=1)
 
         callback_button1 = types.InlineKeyboardButton(text="Школы для детей на русском языке", callback_data=f'studu-1-{message.chat.id}')
@@ -136,7 +136,7 @@ def add_to_search(message):
         bot.send_message(message.chat.id,
                          "В этом пункте меню вы можете выбрать интересующие вопросы про образование",
                          reply_markup=keyboard)
-    elif message.text == "Туры":
+    elif message.text == "Туры 🌞":
         keyboard = types.InlineKeyboardMarkup(row_width=2)
 
         callback_button1 = types.InlineKeyboardButton(text="Экстримальный тур", callback_data=f'tour-1-{message.chat.id}')
@@ -150,7 +150,7 @@ def add_to_search(message):
                          "Какой тур вы ищете?",
                          reply_markup=keyboard)
 
-    elif message.text == "Поддержка":
+    elif message.text == "Связь с оператором☎":
         keyboard = types.InlineKeyboardMarkup(row_width=1)
         callback_button1 = types.InlineKeyboardButton(text="Поддержка",
                                                        url=f'https://t.me/concierge_gotoarmenia')
