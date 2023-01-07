@@ -15,17 +15,17 @@ bot = telebot.TeleBot(config.token)
 def start(message):
 
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton("Медицина")
-    btn2 = types.KeyboardButton("Легализация")
-    btn3 = types.KeyboardButton("Жилье")
-    btn4 = types.KeyboardButton("Развлечения")
-    btn5 = types.KeyboardButton("Образование")
-    btn6 = types.KeyboardButton("Туры")
-    btn7 = types.KeyboardButton("Поддержка")
+    btn1 = types.KeyboardButton("Медицина👨‍⚕")
+    btn2 = types.KeyboardButton("Легализация 🗂")
+    btn3 = types.KeyboardButton("Жилье 🏡")
+    btn4 = types.KeyboardButton("Развлечение 🛍")
+    btn5 = types.KeyboardButton("Образование📚")
+    btn6 = types.KeyboardButton("Туры 🌞")
+    btn7 = types.KeyboardButton("Связь с оператором☎")
 
     markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
     bot.send_message(message.chat.id,
-                     f"Здравствуйте, {message.from_user.first_name}. Я ваш виртуальный ассистент, что вас интересует?. \n\nВыберите из меню ниже: ",
+                     f"Привет✨ Чем можем тебе помочь? \nВыбери тему для разговора.",
                      parse_mode='html', reply_markup= markup)
     addusers = managment_user.Managment_user()
     addusers.AddUser(model.Data_user(message.chat.id, message.from_user.username, message.from_user.first_name))
@@ -50,14 +50,12 @@ def add_to_search(message):
         callback_button1 = types.InlineKeyboardButton(text="Стоматолог", callback_data=f'med-1-{message.chat.id}')
         callback_button2 = types.InlineKeyboardButton(text="Гинеколог", callback_data=f'med-2-{message.chat.id}')
         callback_button3 = types.InlineKeyboardButton(text="Терапевт", callback_data=f'med-3-{message.chat.id}')
-        callback_button4 = types.InlineKeyboardButton(text="Психолог", callback_data=f'med-4-{message.chat.id}')
         callback_button5 = types.InlineKeyboardButton(text="Подолог", callback_data=f'med-5-{message.chat.id}')
         callback_button6 = types.InlineKeyboardButton(text="Проктолог", callback_data=f'med-6-{message.chat.id}')
         callback_button7 = types.InlineKeyboardButton(text="Аллерголог", callback_data=f'med-7-{message.chat.id}')
-        callback_button8 = types.InlineKeyboardButton(text="Окулист", callback_data=f'med-8-{message.chat.id}')
-        callback_button9 = types.InlineKeyboardButton(text="другое...",
+        callback_button9 = types.InlineKeyboardButton(text="Связь с консультантом",
                                                       url=f'https://t.me/concierge_gotoarmenia')
-        keyboard.add(callback_button1, callback_button2, callback_button3, callback_button4, callback_button5, callback_button6, callback_button7, callback_button8, callback_button9)
+        keyboard.add(callback_button1, callback_button2, callback_button3,  callback_button5, callback_button6, callback_button7, callback_button9)
         bot.send_message(message.chat.id,
                          """Граждане РФ без страховки в Армении могут вызвать скорую. Медицинскую помощь окажут бесплатно.
 Лечение будет бесплатным до тех пор, пока сохраняется угроза жизни. Дальше, если вы не прикреплены к поликлинике — за ваш счет. Прикрепиться к поликлинике можно после получения ВНЖ (work permit) и социальной карты (SSN).
@@ -66,7 +64,7 @@ def add_to_search(message):
 Вызов скорой помощи — 103.
 Горячая линия мэрии Еревана для медпомощи иностранцам:
 • для звонков по будням с 09:00 до 18:00 – 010-54-40-58
-• для звонков после 18:00 до 21:00 по будням и выходным – 094-26-75-55 и 091-65-40-64""",
+• для звонков после 18:00 до 21:00 по будням и выходным – 094-26-75-55 и 091-65-40-64 \n\n 💫Выберите специалиста которого ищите. \n\n 👩‍⚕Если его нету в списке выберите чат для разговора с консультантом""",
                          reply_markup=keyboard )
 
     elif message.text == "Легализация":
@@ -83,13 +81,12 @@ def add_to_search(message):
         callback_button6 = types.InlineKeyboardButton(text="ИНН", callback_data=f'legal-6-{message.chat.id}')
         callback_button7 = types.InlineKeyboardButton(text="SSN", callback_data=f'legal-7-{message.chat.id}')
         callback_button8 = types.InlineKeyboardButton(text="Регистрация адреса", callback_data=f'legal-8-{message.chat.id}')
-        callback_button10 = types.InlineKeyboardButton(text="другое...",
-                                                      url=f'https://t.me/concierge_gotoarmenia')
-        callback_button11 = types.InlineKeyboardButton(text="Поддержка юриста",
+
+        callback_button11 = types.InlineKeyboardButton(text="Поддержка юриста по всем остальным вопросам",
                                                        url=f'https://t.me/concierge_gotoarmenia')
 
         keyboard.add(callback_button1, callback_button2, callback_button3, callback_button4, callback_button5,
-                     callback_button6, callback_button7, callback_button8, callback_button10, callback_button11, callback_button12)
+                     callback_button6, callback_button7, callback_button8, callback_button11, callback_button12)
         bot.send_message(message.chat.id,
                          "В этом пункте меню вы можете выбрать интересующие вопросы по легализации в стране", reply_markup=keyboard )
 
@@ -118,7 +115,7 @@ def add_to_search(message):
         callback_button6 = types.InlineKeyboardButton(text="Где выпить вино ", callback_data=f'event-6-{message.chat.id}')
         callback_button7 = types.InlineKeyboardButton(text="Где вкусно поесть", callback_data=f'event-7-{message.chat.id}')
 
-        callback_button12 = types.InlineKeyboardButton(text="другое...",
+        callback_button12 = types.InlineKeyboardButton(text="Если вы ищете что-то другое свяжитесь с нашим консультантом",
                                                       url=f'https://t.me/concierge_gotoarmenia')
         keyboard.add(callback_button1, callback_button2, callback_button3, callback_button4, callback_button5,
                      callback_button6, callback_button7, callback_button12)
@@ -133,7 +130,7 @@ def add_to_search(message):
                                                       callback_data=f'studu-5-{message.chat.id}')
         callback_button2 = types.InlineKeyboardButton(text="Вузы", callback_data=f'studu-2-{message.chat.id}')
         callback_button3 = types.InlineKeyboardButton(text="Уроки Армянского языка", callback_data=f'studu-3-{message.chat.id}')
-        callback_button4 = types.InlineKeyboardButton(text="другое...",
+        callback_button4 = types.InlineKeyboardButton(text="Если вы ищете что-то другое свяжитесь с нашим консультантом📝",
                                                       url=f'https://t.me/concierge_gotoarmenia')
         keyboard.add(callback_button1, callback_button2, callback_button3, callback_button4, callback_button5)
         bot.send_message(message.chat.id,
@@ -142,15 +139,15 @@ def add_to_search(message):
     elif message.text == "Туры":
         keyboard = types.InlineKeyboardMarkup(row_width=2)
 
-        callback_button1 = types.InlineKeyboardButton(text="Ереван", callback_data=f'tour-1-{message.chat.id}')
-        callback_button2 = types.InlineKeyboardButton(text="Дилижан", callback_data=f'tour-2-{message.chat.id}')
-        callback_button4 = types.InlineKeyboardButton(text="Гюмри", callback_data=f'tour-4-{message.chat.id}')
+        callback_button1 = types.InlineKeyboardButton(text="Экстримальный тур", callback_data=f'tour-1-{message.chat.id}')
+        callback_button2 = types.InlineKeyboardButton(text="Обзорный тур", callback_data=f'tour-2-{message.chat.id}')
+        callback_button4 = types.InlineKeyboardButton(text="Познавательный тур", callback_data=f'tour-3-{message.chat.id}')
 
-        callback_button5 = types.InlineKeyboardButton(text="другое...",
+        callback_button5 = types.InlineKeyboardButton(text="Для создания индивидуального маршрута свяжитесь с консультантом 🔖",
                                                        url=f'https://t.me/concierge_gotoarmenia')
         keyboard.add(callback_button1, callback_button2,  callback_button4, callback_button5)
         bot.send_message(message.chat.id,
-                         "В этом пункте меню вы можете выбрать интересующие вопросы по турам",
+                         "Какой тур вы ищете?",
                          reply_markup=keyboard)
 
     elif message.text == "Поддержка":
@@ -305,17 +302,40 @@ def callback_inline(call):   #функция определения на как�
                                         """)
         elif call_data[0] == "tour":
             if call_data[1] == "1":
-                bot.send_photo(user.telegchatID, open(f'/home/telbot/tour_picture/1.jpg', 'rb'))
-                bot.send_photo(user.telegchatID, open(f'/home/telbot/tour_picture/2.jpg', 'rb'))
-                bot.send_photo(user.telegchatID, open(f'/home/telbot/tour_picture/3.jpg', 'rb'))
-            elif call_data[1] == "4":
-                bot.send_photo(user.telegchatID, open(f'tour_picture/4.jpg', 'rb'))
+                keyboard = types.InlineKeyboardMarkup(row_width=1)
+                button1 = types.InlineKeyboardButton(text="Конный тур",
+                                                      callback_data=f'tourIn-1-{call_data[2]}')
+                button2 = types.InlineKeyboardButton(text="Off-road тур на гору Димац",
+                                                     callback_data=f'tourIn-2-{call_data[2]}')
+                keyboard.add( button1, button2)
+                bot.send_message(user.telegchatID,
+                                 "На данную тематику есть несколько туров",
+                                 reply_markup=keyboard)
             elif call_data[1] == "2":
+                keyboard = types.InlineKeyboardMarkup(row_width=1)
+                button1 = types.InlineKeyboardButton(text="Пеший сити-тур",
+                                                     callback_data=f'tourIn-3-{call_data[2]}')
+                button2 = types.InlineKeyboardButton(text="Тур по окрестностям",
+                                                     callback_data=f'tourIn-4-{call_data[2]}')
+                button3 = types.InlineKeyboardButton(text="Тур к монастырю Гошаванк и озеру Гош",
+                                                     callback_data=f'tourIn-5-{call_data[2]}')
+                keyboard.add(button1, button2, button3)
                 bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про туры в Дилижане")
-            elif call_data[1] == "5":
+                                 "На данную тематику есть несколько туров",
+                                 reply_markup=keyboard)
+            elif call_data[1] == "3":
+                keyboard = types.InlineKeyboardMarkup(row_width=1)
+                button1 = types.InlineKeyboardButton(text="Научный Дилижан",
+                                                     callback_data=f'tourIn-6-{call_data[2]}')
+                button2 = types.InlineKeyboardButton(text="Озеро Кари",
+                                                     callback_data=f'tourIn-7-{call_data[2]}')
+                button3 = types.InlineKeyboardButton(text="Индивидуальный тур",
+                                                     callback_data=f'tourIn-8-{call_data[2]}')
+                keyboard.add(button1, button2, button3)
                 bot.send_message(user.telegchatID,
-                                 text="Здесь будет информация про что-то другое")
+                                 "На данную тематику есть несколько туров",
+                                 reply_markup=keyboard)
+
         elif call_data[0] == "eat":
             send = getData.GetEat(call_data[1])
             for i in send:
@@ -331,6 +351,9 @@ def callback_inline(call):   #функция определения на как�
                                          parse_mode='html')
                 except:
                     continue
+        elif call_data[0] == "tourIn":
+            bot.send_photo(user.telegchatID, open(f'/home/telbot/tour_picture/{call_data[1]}.jpg', 'rb'))
+
 if __name__ == "__main__":
     bot.infinity_polling()
 
