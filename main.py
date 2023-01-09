@@ -178,7 +178,6 @@ def callback_inline(call):   #функция определения на как�
 
         elif call_data[0] == "legal":
             if call_data[1] == "1":
-                bot.send_photo(user.telegchatID, open(f'/home/telbot/legal_picture/1.jpg', 'rb'))
                 keyboard = types.InlineKeyboardMarkup(row_width=1)
                 button1 = types.InlineKeyboardButton(text="ВНЖ",
                                                      callback_data=f'legal-11-{call_data[2]}')
